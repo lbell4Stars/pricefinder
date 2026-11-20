@@ -1,0 +1,64 @@
+
+"use client";
+
+import { useState } from "react";
+import { products } from "../lib/products";
+
+export default function Home() {
+  const [search, setSearch] = useState("");
+
+  const filteredProducts = products.filter((product) =>
+    `${product.name} ${product.sku} ${product.id}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
+  return (
+    <main style={{ padding: "30px" }}>
+      <h1>My Shopping Boards</h1>
+
+      <input
+        type="text"
+        placeholder="Search for products... Try Red Stanley"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "15px",
+          borderRadius: "12px",
+          border: "1px solid #ccc",
+          marginBottom: "25px",
+          fontSize: "16px"
+        }}
+      />
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+        gap: "20px"
+      }}>
+        {filteredProducts.map((product) => (
+          <div key={product.id}>
+            <img
+              src={product.image}
+              alt={product.name}
+              style={{
+                width: "100%",
+                height: "220px",
+                objectFit: "cover",
+                borderRadius: "12px"
+              }}
+            />
+
+            <h3>{product.name}</h3>
+            <p>SKU: {product.sku}</p>
+          </div>
+        ))}
+      </div>
+
+      {filteredProducts.length === 0 && (
+        <p>No products found. Try another search.</p>
+      )}
+    </main>
+  );
+}
