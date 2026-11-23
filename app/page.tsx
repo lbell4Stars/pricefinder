@@ -26,22 +26,27 @@ export default function Home() {
   });
 
   return (
-    <main style={{
-      minHeight: "100vh",
-      background: "#f8f9fc",
-      color: "#111827",
-      fontFamily: "Arial, sans-serif"
-    }}>
-
+    <main
+      style={{
+        minHeight: "100vh",
+        background: "#f8f9fc",
+        color: "#111827",
+        fontFamily: "Arial, sans-serif"
+      }}
+    >
       {/* TOP NAVIGATION */}
-      <header style={{
-        background: "white",
-        padding: "25px 4%",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderBottom: "1px solid #ddd"
-      }}>
+      <header
+        style={{
+          background: "white",
+          padding: "25px 4%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "15px",
+          borderBottom: "1px solid #ddd"
+        }}
+      >
         <h1 style={{ color: "#6512a5", margin: 0 }}>
           PriceFinder
         </h1>
@@ -54,50 +59,61 @@ export default function Home() {
       </header>
 
       {/* MAIN SEARCH AREA */}
-      <section style={{
-        textAlign: "center",
-        padding: "90px 20px 65px"
-      }}>
-
-        <p style={{
-          color: "#8615d5",
-          fontWeight: "bold",
-          letterSpacing: "3px"
-        }}>
+      <section
+        style={{
+          textAlign: "center",
+          padding: "70px 20px 45px"
+        }}
+      >
+        <p
+          style={{
+            color: "#8615d5",
+            fontWeight: "bold",
+            letterSpacing: "3px"
+          }}
+        >
           SHOP SMARTER. SAVE MORE.
         </p>
 
-        <h2 style={{
-          fontSize: "clamp(34px, 5vw, 68px)",
-          margin: "20px auto",
-          maxWidth: "850px",
-          lineHeight: 1.05
-        }}>
+        <h2
+          style={{
+            fontSize: "clamp(34px, 5vw, 68px)",
+            margin: "20px auto",
+            maxWidth: "850px",
+            lineHeight: 1.05
+          }}
+        >
           Find the same product.
           <br />
           Find the best price.
         </h2>
 
-        <p style={{
-          fontSize: "19px",
-          color: "#475569",
-          maxWidth: "800px",
-          margin: "25px auto 60px",
-          lineHeight: 1.6
-        }}>
+        <p
+          style={{
+            fontSize: "19px",
+            color: "#475569",
+            maxWidth: "800px",
+            margin: "25px auto 40px",
+            lineHeight: 1.6
+          }}
+        >
           Search by product name, SKU, barcode, or picture.
           Compare prices across your favorite retailers
           and discover where to get the best deal.
         </p>
 
         {/* SEARCH BAR */}
-        <div style={{
-          display: "flex",
-          gap: "15px",
-          maxWidth: "980px",
-          margin: "auto",
-          flexWrap: "wrap"
-        }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "15px",
+            maxWidth: "980px",
+            margin: "auto",
+            flexWrap: "wrap",
+            position: "relative",
+            zIndex: 2
+          }}
+        >
           <input
             type="text"
             placeholder="Try Red Stanley, Pink Nike sneakers..."
@@ -133,14 +149,15 @@ export default function Home() {
         </div>
 
         {/* UPLOAD AND SCAN BUTTONS */}
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "15px",
-          flexWrap: "wrap",
-          marginTop: "35px"
-        }}>
-
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "15px",
+            flexWrap: "wrap",
+            marginTop: "30px"
+          }}
+        >
           <input
             ref={fileInput}
             type="file"
@@ -180,12 +197,15 @@ export default function Home() {
       </section>
 
       {/* SEARCH RESULTS */}
-      <section style={{
-        maxWidth: "1200px",
-        margin: "auto",
-        padding: "20px 30px 70px"
-      }}>
-
+      <section
+        style={{
+          maxWidth: "1200px",
+          margin: "auto",
+          padding: "20px 30px 70px",
+          position: "relative",
+          zIndex: 1
+        }}
+      >
         <h2>
           {search ? "Search Results" : "Featured Products"}
         </h2>
@@ -196,12 +216,13 @@ export default function Home() {
           </p>
         )}
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-          gap: "25px"
-        }}>
-
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+            gap: "25px"
+          }}
+        >
           {filteredProducts.map((product) => (
             <div
               key={product.id}
@@ -209,71 +230,74 @@ export default function Home() {
                 background: "white",
                 borderRadius: "16px",
                 padding: "15px",
-                boxShadow: "0 3px 15px rgba(0,0,0,0.06)"
+                boxShadow: "0 3px 15px rgba(0,0,0,0.06)",
+                minWidth: 0
               }}
             >
-
-              <div style={{
-                height: "230px",
-                background: "#f1edf7",
-                borderRadius: "12px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden"
-              }}>
+              {/* PRODUCT IMAGE */}
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "230px",
+                  background: "#f1edf7",
+                  borderRadius: "12px",
+                  overflow: "hidden"
+                }}
+              >
                 <Image
                   src={product.image}
                   alt={product.name}
                   fill
                   unoptimized
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
+                  sizes="(max-width: 600px) 100vw, 250px"
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain"
+                    objectFit: "contain",
+                    padding: "10px"
                   }}
                 />
               </div>
 
+              {/* PRODUCT DETAILS */}
               <h3>{product.name}</h3>
+
               <p>Color: {product.color}</p>
+
               <p>SKU: {product.sku}</p>
 
               <p style={{ color: "#7412b5", fontWeight: "bold" }}>
                 Compare prices at {product.stores.length} stores
               </p>
 
+              {/* STORE PRICES */}
               {product.stores.map((store) => (
                 <p key={store.name}>
                   {store.name}: $
                   {(store.salePrice ?? store.price).toFixed(2)}
                 </p>
               ))}
-
             </div>
           ))}
-
         </div>
       </section>
 
       {/* RETAILER NAMES */}
-      <footer style={{
-        background: "white",
-        textAlign: "center",
-        padding: "35px 20px",
-        borderTop: "1px solid #ddd"
-      }}>
+      <footer
+        style={{
+          background: "white",
+          textAlign: "center",
+          padding: "35px 20px",
+          borderTop: "1px solid #ddd"
+        }}
+      >
         <h3>Shop Your Favorite Stores</h3>
+
         <p style={{ color: "#64748b", lineHeight: 2 }}>
           Walmart · Target · Kohl&apos;s · Macy&apos;s · JCPenney
           <br />
           Nordstrom · Amazon · More Stores
         </p>
       </footer>
-
     </main>
   );
 }
